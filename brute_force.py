@@ -39,9 +39,9 @@ if __name__ == "__main__":
         wt = weights[:i]
         vt = values[:i]
 
-        start_time = time.time()
+        start_time = time.perf_counter()
         max_value = knapsackBruteForce(W, wt, vt)
-        end_time = time.time()
+        end_time = time.perf_counter()
 
         elapsed_time = end_time - start_time
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         times.append(elapsed_time)
         max_values.append(max_value)
 
-        print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.4f} sec")
+        print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.8f} sec")
 
     # Plotting Time vs Number of Items
     plt.figure(figsize=(12, 5))
