@@ -1,3 +1,6 @@
+import time
+import matplotlib.pyplot as plt
+
 def knapsackRec(W, wt, vt, n):
 
     # Base case: no items left or no capacity left
@@ -19,10 +22,52 @@ def knapsackBruteForce(W, wt, vt):
 
 
 # Example usage:
+# Benchmark and plotting
 if __name__ == "__main__":
-    W = 50  # Maximum weight capacity of the knapsack
-    wt = [10, 20, 30]  # Weights of the items
-    vt = [60, 100, 120]  # Values of the items  
+    # Base capacity
+    W = 50
 
-    max_value = knapsackBruteForce(W, wt, vt)
-    print(f"The maximum value that can be obtained is: {max_value}")
+    # Sample item data (values and weights grow)
+    weights = [10, 20, 30, 40, 15, 25, 35, 5]
+    values = [60, 100, 120, 240, 50, 150, 210, 30]
+
+    item_counts = []
+    times = []
+    max_values = []
+
+    for i in range(1, len(weights) + 1):
+        wt = weights[:i]
+        vt = values[:i]
+
+        start_time = time.time()
+        max_value = knapsackBruteForce(W, wt, vt)
+        end_time = time.time()
+
+        elapsed_time = end_time - start_time
+
+        item_counts.append(i)
+        times.append(elapsed_time)
+        max_values.append(max_value)
+
+        print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.4f} sec")
+
+    # Plotting Time vs Number of Items
+    plt.figure(figsize=(12, 5))
+
+    plt.subplot(1, 2, 1)
+    plt.plot(item_counts, times, marker='o')
+    plt.title('Execution Time vs Number of Items')
+    plt.xlabel('Number of Items')
+    plt.ylabel('Time (seconds)')
+    plt.grid(True)
+
+    # Plotting Max Value vs Number of Items
+    plt.subplot(1, 2, 2)
+    plt.plot(item_counts, max_values, marker='o', color='green')
+    plt.title('Max Value vs Number of Items')
+    plt.xlabel('Number of Items')
+    plt.ylabel('Max Value Obtained')
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.show()
