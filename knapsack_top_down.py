@@ -1,4 +1,5 @@
 import time 
+import matplotlib.pyplot as plt
 
 def knapsackTopDown(W, wt, vt, n, memo):
     if n == 0 or W == 0:
@@ -27,13 +28,32 @@ if __name__ == "__main__":
     weights = [10, 20, 30, 40, 15, 25, 35, 5]
     values  = [60, 100, 120, 240, 50, 150, 210, 30]
 
+    item_counts = []
+    top_down_times = []
+    max_values = []
+
     for i in range(1, len(weights)+1):
         wt = weights[:i]
         vt = values[:i]
 
+        item_counts.append(i)
+
         start_time = time.perf_counter()
         max_value = knapsackTopDownWrapper(W, wt, vt)
-        end_time = time.perf_counter()
+        elapsed_time = time.perf_counter() - start_time
 
-        elapsed_time = end_time - start_time
-        print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.8f} sec")
+        top_down_times.append(elapsed_time)
+        max_values.append(max_value)
+
+        print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.6f} sec")
+
+    # Plotting Benchmark Result
+    plt.figure(figsize=(8, 5))
+    plt.plot(item_counts, top_down_times, marker='o', color='purple', label='Top-down DP')
+    plt.xlabel('Number of Items')
+    plt.ylabel('Execution Time (seconds)')
+    plt.title('Top-down DP Knapsack Benchmark')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
