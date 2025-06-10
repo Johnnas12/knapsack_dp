@@ -15,6 +15,9 @@ def knapsackDP(W, wt, vt, n):
 
     return dp[n][W]
 
+def knapsackBottomUp(W, wt, vt):
+    n = len(wt)
+    return knapsackDP(W, wt, vt, n)
 
 # Example usage:
 if __name__ == "__main__":
