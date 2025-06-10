@@ -47,13 +47,24 @@ if __name__ == "__main__":
 
         print(f"{i} items: Value = {max_value}, Time = {elapsed_time:.6f} sec")
 
-    # Plotting Benchmark Result
-    plt.figure(figsize=(8, 5))
-    plt.plot(item_counts, top_down_times, marker='o', color='purple', label='Top-down DP')
+    # Plotting Benchmark Results
+    plt.figure(figsize=(12, 5))
+
+    # Execution Time vs Number of Items
+    plt.subplot(1, 2, 1)
+    plt.plot(item_counts, top_down_times, marker='o', color='purple')
     plt.xlabel('Number of Items')
     plt.ylabel('Execution Time (seconds)')
-    plt.title('Top-down DP Knapsack Benchmark')
-    plt.legend()
+    plt.title('Top-down DP: Execution Time vs Number of Items')
     plt.grid(True)
+
+    # Max Value vs Number of Items
+    plt.subplot(1, 2, 2)
+    plt.plot(item_counts, max_values, marker='o', color='green')
+    plt.xlabel('Number of Items')
+    plt.ylabel('Max Value Obtained')
+    plt.title('Top-down DP: Max Value vs Number of Items')
+    plt.grid(True)
+
     plt.tight_layout()
     plt.show()
